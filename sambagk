@@ -1,0 +1,50 @@
+#!/bin/bash
+
+while true; do
+    echo "Please select an option:"
+    echo "1. Start Samba server"
+    echo "2. Stop Samba server"
+    echo "3. Enable Samba server (auto-start on boot)"
+    echo "4. Disable Samba server"
+    echo "5. Show Samba server status"
+    echo "6. Edit Samba configuration (smb.conf)"
+    echo "7. Exit"
+
+    read -p "Your choice (1-7): " option
+
+    case $option in
+        1)
+            echo "Starting Samba server..."
+            sudo systemctl start smbd
+            ;;
+        2)
+            echo "Stopping Samba server..."
+            sudo systemctl stop smbd
+            ;;
+        3)
+            echo "Enabling Samba server to start on boot..."
+            sudo systemctl enable smbd
+            ;;
+        4)
+            echo "Disabling Samba server from starting on boot..."
+            sudo systemctl disable smbd
+            ;;
+        5)
+            echo "Samba server status:"
+            systemctl status smbd
+            ;;
+        6)
+            echo "Opening Samba configuration file (smb.conf) with nano..."
+            sudo nano /etc/samba/smb.conf
+            ;;
+        7)
+            echo "Exiting program."
+            exit 0
+            ;;
+        *)
+            echo "Invalid selection. Please choose a number between 1 and 7."
+            ;;
+    esac
+    echo ""
+done
+
