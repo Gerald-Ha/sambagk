@@ -42,7 +42,7 @@ The installation script will:
 
 ## ⚡ Usage
 
-After installation, simply run:
+After installation, simply run in Terminal:
 ```bash
 sambagk
 ```
