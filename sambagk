@@ -1,50 +1,104 @@
 #!/bin/bash
+#
+# sambagk
+# A simple script for managing the Samba server on Ubuntu
+#
+# Version: 1.1
+# Author: Gerald Hasani
+# email = "contact@gerald-hasani.com"
+# Web: https://gerald-hasani.com
+# github = "https://github.com/Gerald-Ha"
+############################################################
+
+
+check_samba_installed() {
+    if ! command -v smbd >/dev/null 2>&1; then
+        echo "ERROR: Samba (smbd) does not seem to be installed."
+        echo "Please install Samba, e.g., with: sudo apt-get update && sudo apt-get install samba"
+        exit 1
+    fi
+}
+
+
+pause() {
+    echo ""
+    read -n 1 -s -r -p "Press any key to continue ..."
+    echo ""
+}
+
+
+check_samba_installed
+
+clear
+echo "----------------------------------"
+echo "Welcome to sambagk!"
+echo "----------------------------------"
+echo "A script for simple administration of the Samba server."
+echo ""
 
 while true; do
-    echo "Please select an option:"
+    echo "Please choose an option:"
     echo "1. Start Samba server"
     echo "2. Stop Samba server"
-    echo "3. Enable Samba server (auto-start on boot)"
-    echo "4. Disable Samba server"
+    echo "3. Enable Samba server (Auto-Start)"
+    echo "4. Disable Samba server (Auto-Start)"
     echo "5. Show Samba server status"
     echo "6. Edit Samba configuration (smb.conf)"
-    echo "7. Exit"
+    echo "7. Restart Samba server"
+    echo "8. Test Samba configuration (testparm)"
+    echo "9. Exit"
 
-    read -p "Your choice (1-7): " option
+    read -p "Your selection (1-9): " option
+    echo ""
 
     case $option in
         1)
             echo "Starting Samba server..."
             sudo systemctl start smbd
+            pause
             ;;
         2)
             echo "Stopping Samba server..."
             sudo systemctl stop smbd
+            pause
             ;;
         3)
-            echo "Enabling Samba server to start on boot..."
+            echo "Enabling Samba server for automatic start..."
             sudo systemctl enable smbd
+            pause
             ;;
         4)
-            echo "Disabling Samba server from starting on boot..."
+            echo "Disabling Samba server from automatic start..."
             sudo systemctl disable smbd
+            pause
             ;;
         5)
             echo "Samba server status:"
             systemctl status smbd
+            pause
             ;;
         6)
             echo "Opening Samba configuration file (smb.conf) with nano..."
             sudo nano /etc/samba/smb.conf
+            pause
             ;;
         7)
-            echo "Exiting program."
+            echo "Restarting Samba server..."
+            sudo systemctl restart smbd
+            pause
+            ;;
+        8)
+            echo "Testing the current Samba configuration with testparm..."
+            sudo testparm
+            pause
+            ;;
+        9)
+            echo "Exiting the program. Goodbye!"
             exit 0
             ;;
         *)
-            echo "Invalid selection. Please choose a number between 1 and 7."
+            echo "Invalid selection! Please choose a number between 1 and 9."
+            pause
             ;;
     esac
-    echo ""
 done
-

@@ -11,8 +11,11 @@
 - Enable the Samba server to start on boot
 - Disable the Samba server from starting on boot
 - Check the status of the Samba server
-- Edit Samba configuration (`smb.conf`) using `nano`
+- **Restart the Samba server**
+- **Test the Samba configuration** (`testparm`)
+- Edit the Samba configuration (`smb.conf`) using `nano`
 - Simple installation and uninstallation scripts
+- Checks if `smbd` (Samba) is installed, prompting users if it’s missing
 
 ---
 
@@ -54,7 +57,9 @@ sambagk
 4. Disable Samba server
 5. Show Samba server status
 6. Edit Samba configuration (`/etc/samba/smb.conf`)
-7. Exit
+7. Restart Samba server
+8. Test Samba configuration (using testparm)
+9. Exit
 
 ---
 
